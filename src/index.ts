@@ -4,15 +4,15 @@ export class SlackFormatter {
     public text: string;
     public blocks: Array<object>;
 
-    constructor(text = null){
+    constructor(text: string = ''){
         this.blocks = [];
-        if(text != null){
+        if(text){
             this.addBlock(text);
             this.setText(text);
         }
     }
 
-    setText(text){
+    setText(text: string) : SlackFormatter{
         this.text = text;
         
         if(this.blocks.length == 0){
@@ -30,7 +30,7 @@ export class SlackFormatter {
         return this;
     }
 
-    addBlock(text){
+    addBlock(text: string) : SlackFormatter{
         this.blocks.push({
             type: "section",
             text: {
@@ -41,11 +41,11 @@ export class SlackFormatter {
         return this;
     }
 
-    hasBlocks(){
+    hasBlocks() : boolean {
         return this.blocks.length > 0;
     }
 
-    toJson(){
+    toJson() : any {
         return {
             text: this.text,
             blocks: this.blocks
@@ -55,23 +55,18 @@ export class SlackFormatter {
 
 export class Slack {
     private key: string;
-    private client: any;
-    private items: any;
-
+    private slackObject: SlackFormatter;
+    
     constructor(slackUrl: string){
         this.key = slackUrl;
-        this.client = axios.create({
-            baseURL: this.key,
-            timeout: 90000,
-        });
     }
 
-    setItems(items: any){
-        this.items = items;
+    setFormatter(slackObject: SlackFormatter) : Slack{
+        this.slackObject = slackObject;
         return this;        
     }
 
-    send(slackObject: any){
-        return this.client.post('', slackObject.toJson())
+    send() : any {
+        return axios.post(this.key, this.slackObject.toJson())
     }
 }

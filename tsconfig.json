@@ -3,9 +3,14 @@
         "module": "commonjs",
         "target": "es2015",
         "declaration": true,
-        "outDir": "./dist"
+        "outDir": "./dist",
+        "strict": false,
+        "removeComments": true
     },
     "include": [
         "src/**/*"
+    ],
+    "exclude": [
+        "src/test.ts"
     ]
 }
