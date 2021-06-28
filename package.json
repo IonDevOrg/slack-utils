@@ -1,0 +1,23 @@
+{
+  "name": "slack-utils",
+  "version": "1.0.0",
+  "repository": "git@github.com:IonDevOrg/slack-utils.git",
+  "author": "Daniel Farias <daniel.dsfarias@gmail.com>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "npx tsc .",
+    "run": "npx ts-node-dev test.ts"
+  },
+  "devDependencies": {
+    "ts-node-dev": "^1.1.6",
+    "tsc": "^2.0.3"
+  },
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
