@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-export class SlackObject {
+class SlackObject {
     public text: string = '';
     public blocks: Array<object>;
     private key: string;
@@ -76,9 +76,13 @@ export class SlackObject {
             axios.post(vm.key, vm.toJson()).then(() => {
                 resolve(true)
             })
-            .catch(err => {
+            .catch((err:any) => {
                 reject(err)
             })
         })
     }
+}
+
+module.exports = {
+    SlackObject
 }
