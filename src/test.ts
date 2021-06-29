@@ -1,13 +1,12 @@
-import { Slack, SlackFormatter } from ".";
+import { SlackObject } from ".";
 const SLACK_URL: string = process.env.SLACK_URL;
 
 async function main(){
-    let slack = new Slack(SLACK_URL);
-    //
-    let slackFormatter = new SlackFormatter(`New tests`);
-    slackFormatter.addBlock(`No files`); //.addBlock(`No files 2`);
-    //
-    slack.setFormatter(slackFormatter);
+    let slack = new SlackObject(SLACK_URL);
+    slack
+    .init(`New tests`)
+    .addBlock(`No files`) 
+    .addBlock(`No files 2`);
     await slack.send();
 }
 

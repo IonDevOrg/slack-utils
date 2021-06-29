@@ -1,18 +1,24 @@
 import axios from 'axios';
 
-export class SlackFormatter {
-    public text: string;
+export class SlackObject {
+    public text: string = '';
     public blocks: Array<object>;
+    private key?: string;
 
-    constructor(text: string = ''){
+    constructor(slackUrl: string){
+        this.key = slackUrl;
         this.blocks = [];
+    }
+
+    init(text: string = '') : SlackObject {
         if(text){
             this.addBlock(text);
             this.setText(text);
         }
+        return this;
     }
 
-    setText(text: string) : SlackFormatter{
+    setText(text: string) : SlackObject {
         this.text = text;
         
         if(this.blocks.length == 0){
@@ -30,7 +36,7 @@ export class SlackFormatter {
         return this;
     }
 
-    addBlock(text: string) : SlackFormatter{
+    addBlock(text: string) : SlackObject {
         this.blocks.push({
             type: "section",
             text: {
@@ -45,28 +51,34 @@ export class SlackFormatter {
         return this.blocks.length > 0;
     }
 
-    toJson() : any {
+    toJson() : object {
         return {
             text: this.text,
             blocks: this.blocks
         }
     }
-}
 
-export class Slack {
-    private key: string;
-    private slackObject: SlackFormatter;
-    
-    constructor(slackUrl: string){
-        this.key = slackUrl;
-    }
+    send() : Promise<boolean> {
+        let vm: SlackObject = this
+        return new Promise((resolve, reject) => {
+            if(!vm.hasBlocks()){
+                reject(new Error("No blocks to send"))
+            }
 
-    setFormatter(slackObject: SlackFormatter) : Slack{
-        this.slackObject = slackObject;
-        return this;        
-    }
+            if(!vm.text){
+                reject(new Error("No text set"))
+            }
+            
+            if(!vm.key){
+                reject(new Error("No API key set"))
+            }
 
-    send() : any {
-        return axios.post(this.key, this.slackObject.toJson())
+            axios.post(vm.key, vm.toJson()).then(() => {
+                resolve(true)
+            })
+            .catch(err => {
+                reject(err)
+            })
+        })
     }
 }
