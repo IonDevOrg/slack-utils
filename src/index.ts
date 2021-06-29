@@ -1,12 +1,12 @@
-import axios from 'axios';
+const axios = require('axios');
 
 export class SlackObject {
     public text: string = '';
     public blocks: Array<object>;
-    private key?: string;
+    private key: string;
 
-    constructor(slackUrl: string){
-        this.key = slackUrl;
+    constructor(key: string){
+        this.key = key;
         this.blocks = [];
     }
 
