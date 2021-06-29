@@ -10,13 +10,18 @@
     "/dist"
   ],
   "scripts": {
-    "build": "npx tsc",
-    "dev": "npx ts-node-dev -r dotenv/config src/test.ts"
+    "test": "npx jest .",
+    "build": "npx tsc --declaration",
+    "dev": "npx nodemon --watch \"src//\" --exec \"ts-node src/test.ts\" -e ts"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.12.5",
     "dotenv": "^10.0.0",
-    "ts-node-dev": "^1.1.6",
-    "tsc": "^2.0.3",
+    "jest": "^27.0.6",
+    "nodemon": "^2.0.8",
+    "ts-jest": "^27.0.3",
+    "ts-node": "^10.0.0",
     "typescript": "^4.3.4"
   },
   "dependencies": {

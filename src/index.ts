@@ -1,6 +1,6 @@
-const axios = require('axios');
+import axios from 'axios';
 
-class SlackObject {
+export class SlackObject {
     public text: string = '';
     public blocks: Array<object>;
     private key: string;
@@ -81,8 +81,4 @@ class SlackObject {
             })
         })
     }
-}
-
-module.exports = {
-    SlackObject
 }

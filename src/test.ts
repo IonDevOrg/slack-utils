@@ -1,5 +1,7 @@
-import { SlackObject } from ".";
-const SLACK_URL: string = process.env.SLACK_URL;
+import { SlackObject } from "."
+require('dotenv').config()
+
+const SLACK_URL: any = process.env.SLACK_URL;
 
 async function main(){
     let slack = new SlackObject(SLACK_URL);
