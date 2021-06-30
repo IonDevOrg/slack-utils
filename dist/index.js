@@ -6,10 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SlackObject = void 0;
 var axios_1 = __importDefault(require("axios"));
 var SlackObject = /** @class */ (function () {
-    function SlackObject(key) {
+    function SlackObject(key, channel) {
+        if (channel === void 0) { channel = ''; }
         this.text = '';
         this.key = key;
         this.blocks = [];
+        this.channel = channel;
     }
     SlackObject.prototype.init = function (text) {
         if (text === void 0) { text = ''; }
@@ -49,10 +51,14 @@ var SlackObject = /** @class */ (function () {
         return this.blocks.length > 0;
     };
     SlackObject.prototype.toJson = function () {
-        return {
+        var payload = {
             text: this.text,
             blocks: this.blocks
         };
+        if (this.channel.trim()) {
+            payload['channel'] = '#' + this.channel;
+        }
+        return payload;
     };
     SlackObject.prototype.send = function () {
         var vm = this;
