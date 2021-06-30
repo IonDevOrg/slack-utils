@@ -4,10 +4,12 @@ export class SlackObject {
     public text: string = '';
     public blocks: Array<object>;
     private key: string;
+    private channel: string;
 
-    constructor(key: string){
+    constructor(key: string, channel: string = ''){
         this.key = key;
         this.blocks = [];
+        this.channel = channel;
     }
 
     init(text: string = '') : SlackObject {
@@ -52,10 +54,16 @@ export class SlackObject {
     }
 
     toJson() : object {
-        return {
+        let payload : any = {
             text: this.text,
             blocks: this.blocks
         }
+
+        if(this.channel.trim()){
+            payload['channel'] = '#' + this.channel
+        }
+
+        return payload;
     }
 
     send() : Promise<boolean> {
