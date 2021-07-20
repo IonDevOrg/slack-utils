@@ -1,4 +1,4 @@
-import { SlackObject } from "."
+import { SlackObject } from "./../src"
 require('dotenv').config()
 
 const SLACK_URL: any = process.env.SLACK_URL;
