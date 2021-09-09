@@ -14,15 +14,13 @@
     "build": "npx tsc --declaration"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.23",
-    "@types/node": "^15.12.5",
+    "@types/node": "^15.14.9",
     "dotenv": "^10.0.0",
-    "jest": "^27.0.6",
-    "ts-jest": "^27.0.3",
-    "ts-node": "^10.0.0",
-    "typescript": "^4.3.4"
+    "jest": "^27.1.1",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.2"
   },
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.21.4"
   }
 }
